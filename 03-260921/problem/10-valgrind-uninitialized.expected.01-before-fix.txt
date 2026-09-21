@@ -1,0 +1,47 @@
+==17227== Memcheck, a memory error detector
+==17227== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==17227== Using Valgrind-3.15.0 and LibVEX; rerun with -h for copyright info
+==17227== Command: ./a.out
+==17227== 
+==17227== Conditional jump or move depends on uninitialised value(s)
+==17227==    at 0x48EA958: __vfprintf_internal (vfprintf-internal.c:1687)
+==17227==    by 0x48D4D3E: printf (printf.c:33)
+==17227==    by 0x10918D: main (06-valgrind-uninitialized.c:5)
+==17227== 
+==17227== Use of uninitialised value of size 8
+==17227==    at 0x48CE69B: _itoa_word (_itoa.c:179)
+==17227==    by 0x48EA574: __vfprintf_internal (vfprintf-internal.c:1687)
+==17227==    by 0x48D4D3E: printf (printf.c:33)
+==17227==    by 0x10918D: main (06-valgrind-uninitialized.c:5)
+==17227== 
+==17227== Conditional jump or move depends on uninitialised value(s)
+==17227==    at 0x48CE6AD: _itoa_word (_itoa.c:179)
+==17227==    by 0x48EA574: __vfprintf_internal (vfprintf-internal.c:1687)
+==17227==    by 0x48D4D3E: printf (printf.c:33)
+==17227==    by 0x10918D: main (06-valgrind-uninitialized.c:5)
+==17227== 
+==17227== Conditional jump or move depends on uninitialised value(s)
+==17227==    at 0x48EB228: __vfprintf_internal (vfprintf-internal.c:1687)
+==17227==    by 0x48D4D3E: printf (printf.c:33)
+==17227==    by 0x10918D: main (06-valgrind-uninitialized.c:5)
+==17227== 
+==17227== Conditional jump or move depends on uninitialised value(s)
+==17227==    at 0x48EA6EE: __vfprintf_internal (vfprintf-internal.c:1687)
+==17227==    by 0x48D4D3E: printf (printf.c:33)
+==17227==    by 0x10918D: main (06-valgrind-uninitialized.c:5)
+==17227== 
+0
+==17227== Conditional jump or move depends on uninitialised value(s)
+==17227==    at 0x109192: main (06-valgrind-uninitialized.c:6)
+==17227== 
+COMPLETED
+==17227== 
+==17227== HEAP SUMMARY:
+==17227==     in use at exit: 0 bytes in 0 blocks
+==17227==   total heap usage: 1 allocs, 1 frees, 1,024 bytes allocated
+==17227== 
+==17227== All heap blocks were freed -- no leaks are possible
+==17227== 
+==17227== Use --track-origins=yes to see where uninitialised values come from
+==17227== For lists of detected and suppressed errors, rerun with: -s
+==17227== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 0 from 0)
