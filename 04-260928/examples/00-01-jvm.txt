@@ -1,0 +1,16 @@
+int c = (a + b) * d;
+
+iload_1   ; push a
+iload_2   ; push b
+iadd      ; pop a,b -> push (a+b)
+iload_3   ; push d
+imul      ; pop (a+b), d -> push result
+istore    ; store into c
+
+[]
+[a]
+[a, b]
+[a+b]
+[a+b, d]
+[(a+b)*d]
+[]
