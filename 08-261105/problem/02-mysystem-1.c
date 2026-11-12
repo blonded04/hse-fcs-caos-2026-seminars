@@ -21,3 +21,45 @@ int mysys(const char *str);
 ни на стандартный поток вывода.
 Функция mysys должна корректно работать независимо от использования основным процессом других функций создания процессов и функций ввода-вывода.
 */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int mysys(const char *str) {
+    pid_t pid = fork();
+    if (pid == -1) {
+        return -1;
+    }
+    if (pid == 0) {
+        // child
+        execlp("/bin/sh", "sh", "-c", str, NULL);
+        exit(127);
+    } else {
+        // parent
+        int status;
+        pid_t result = waitpid(pid, &status, 0);
+        if (WIFEXITED(status)) {
+            status = WEXITSTATUS(status);
+            if (status < 0 || 128 < status) {
+                abort();
+            }
+            return status;
+        }
+        if (WIFSIGNALED(status)) {
+            status = WTERMSIG(status);
+            return 128 + status;
+        }
+        abort();
+    }
+}
+
+int main() {
+    int error = mysys("ls -alh");
+    printf("Error code: %d\n", error);
+    error = mysys("ls -alh fjgerogreogmioregker");
+    printf("Error code: %d\n", error);
+    error = mysys("echo \"vsem privet\"");
+    printf("Error code: %d\n", error);
+}

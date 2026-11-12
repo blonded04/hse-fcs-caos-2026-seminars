@@ -10,3 +10,22 @@
 Процесс-родитель должен завершаться самым последним из всех процессов.
 */
 
+
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void) {
+    if (fork() == 0) {
+        if (fork() == 0) {
+            printf("3");
+        } else {
+            wait(NULL);
+            printf("2");
+        }
+    } else {
+        wait(NULL);
+        printf("1");
+    }
+    return 0;
+}
