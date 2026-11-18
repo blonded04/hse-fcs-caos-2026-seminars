@@ -2,6 +2,7 @@
 #include <inttypes.h>
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
 
 static volatile sig_atomic_t square_mode;
 
@@ -17,19 +18,20 @@ int main(void) {
     sigemptyset(&sa.sa_mask);
     sigaddset(&sa.sa_mask, SIGUSR1);
     sigaddset(&sa.sa_mask, SIGUSR2);
+
     assert(sigaction(SIGUSR1, &sa, NULL) == 0);
     assert(sigaction(SIGUSR2, &sa, NULL) == 0);
     assert(sigprocmask(SIG_UNBLOCK, &sa.sa_mask, NULL) == 0);
 
     assert(printf("%ld\n", getpid()) >= 0);
-    assert(fflush(STDOUT_FILENO) == 0);
+    assert(fflush(0) == 0);
 
     int32_t x;
-    while (scanf("%" SCNd32, &x) == 1) {
+    while (scanf("%d", &x) == 1) {
         int64_t y = x;
         sig_atomic_t mode = square_mode;
         assert(printf("%ld\n", mode ? y * y : -y) >= 0);
-        assert(fflush(STDOUT_FILENO) == 0);
+        assert(fflush(0) == 0);
     }
     return 0;
 }
